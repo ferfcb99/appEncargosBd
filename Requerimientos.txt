@@ -1,0 +1,32 @@
+Una tienda necesita almacenar la informacion sobre sus pedido, 
+clientes, proveedores, articulos.
+
+Se necesita un sistema que por roles existan 'trabajadores' y un
+'administrador'. El trabajador solo tendra permitido registrar 
+pedidos, insertar y borrar articulos y todo lo que conlleva.
+El administrador podra hacer esto y ademas podra registrar nuevos 
+proveedores, nuevos articulos, eliminar trabajadores y permisos 
+necesarios para el control total.
+
+De cada cliente se requiere conocer su codigo de cliente,
+nombre, apellido, credito donde el credito por cada compra incrementara en 2 pesos 
+y no puede superar los 200.
+
+De cada proovedor se requiere conocer su nombre de empresa,
+su direccion y un codigo identificador;
+
+De cada articulo se requiere conocer su codigo identificador, nombre,
+peso, precio.
+
+De cada pedido se requiere conocer su fecha, hora, cantidad de articulos,
+costo, iva, descuento, costo total y un codigo de identificacion.
+
+Cada cliente puede hacer varios pedidos y un pedido puede ser 
+realizado por un solo cliente.
+
+Un pedido puede tener uno o varios articulos y un articulo puede ir
+en varios pedidos.
+
+un proovedor provee al menos un articulo y un articulo es provisto
+por un proveedor.
+

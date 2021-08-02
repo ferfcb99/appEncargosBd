@@ -1,0 +1,79 @@
+delimiter //
+CREATE TRIGGER nombre_trigger time_event action ON nombre_tabla
+FOR EACH ROW 
+begin 
+	-- cuerpo del trigger
+end //
+delimiter ;
+
+
+create database probandoTriggers;
+use probandoTriggers;
+
+create table Proveedor(
+	id int auto_increment primary key,
+	nombre varchar(10) not null
+);
+
+create table articulo(
+	idArticulo int not null auto_increment primary key,
+	id int,
+	foreign key(id) references proveedor(id)
+);
+
+
+create table proveedoresEliminados(
+	nombre varchar(10) primary key
+);
+
+create table registroProveedor(
+	nombre varchar(10) primary key not null,
+	fecha date not null
+);
+-- crear un procedimiento que inserte proveedores
+-- stored procedure
+DELIMITER //
+CREATE PROCEDURE sp_NuevoProveedor(
+	nombreProveedor varchar(10)
+) BEGIN 
+	INSERT INTO Proveedor(nombre) VALUES(nombreProveedor);
+END //
+
+delimiter ;
+
+-- llamando al procedimiento
+CALL sp_NuevoProveedor('CocaCola');
+CALL sp_NuevoProveedor('Nike');
+CALL sp_NuevoProveedor('Pepsi');
+CALL sp_NuevoProveedor('Sony');
+CALL sp_NuevoProveedor('Samsung');
+
+
+DELIMITER //
+CREATE TRIGGER proveedoresBorrado AFTER DELETE ON Proveedor
+for each row
+begin 
+	insert into proveedoresEliminados(nombre) values(old.nombre);
+end //
+delimiter ;
+
+
+-- trigger que indica la fecha de creacion de un 
+-- proveedor
+
+DELIMITER //
+CREATE TRIGGER fechaDeRegistro AFTER INSERT on Proveedor
+for each row
+begin
+	insert into registroProveedor(nombre, fecha) VALUES(new.nombre, curdate());
+end //
+delimiter ;
+-- truncate
+select * from proveedor;
+
+
+-- CODIGO PARA DESHABILITAR LA REVISION DE LLAVES PRIMARIAS 
+SET FOREIGN_KEY_CHECKS = 0; -> si se desea deshabilitar
+SET FOREIGN_KEY_CHECKS = 1; -> si se desea habilitar
+
+
