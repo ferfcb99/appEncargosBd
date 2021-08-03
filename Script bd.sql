@@ -18,9 +18,12 @@ CALL sp_NuevoCliente('Aline','Gress',150);
 CALL sp_NuevoCliente('Mariana','Martinez',100);
 CALL sp_NuevoCliente('Marcos','Jimenez',200);
 CALL sp_NuevoCliente('Raul','Gonzalez',100);
+CALL sp_NuevoCliente('Uriel','Ibañez',100);
 
 select codCliente, nombre, apellido, credito from Cliente;
 select codCliente, nombre, apellido, credito from Cliente where codCliente = ?;
+
+DELETE FROM Cliente WHERE codCliente = ?;
 
 -- Delete: Borra todos los registros deseados pero NO resetea el id auto_increment
 -- Truncate: Borra todos los registros deseados pero SI resetea el id auto_increment
