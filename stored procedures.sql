@@ -23,7 +23,7 @@ DELIMITER ;
 -- procedimiento para insertar un articulo
 DELIMITER $$
 CREATE PROCEDURE sp_NuevoArticulo(
-   codArticulox char(3),
+    codArticulox char(3),
     nombrex varchar(30),
     preciox decimal(5,2),
     pesox int,

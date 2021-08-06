@@ -35,7 +35,9 @@ CREATE TABLE Proveedor(
     primary key(codProveedor)
 );
 CALL sp_NuevoProveedor('CC','CocaCola','CDMX');
+CALL sp_NuevoProveedor('RS','Radios','CDMX');
 select * from Proveedor;
+select codProveedor from proveedor;
 
 
 CREATE TABLE Pedido(
@@ -50,12 +52,16 @@ CREATE TABLE Pedido(
     codCliente int not null,
 	foreign key(codCliente) REFERENCES Cliente(codCliente) ON DELETE CASCADE ON UPDATE CASCADE
 );
+use Tienda;
 select curtime();
-call sp_NuevoPedido(CURDATE(), curtime(), 2, 14.99, 5, 0, 15.17, 1);
+call sp_NuevoPedido(CURDATE(), curtime(), 2, 14.99, 5, 0, 15.17, 2);
 select * from Pedido;
 Select max(idPedido) as ultimo from Pedido;
 
-
+select * from cliente;
+select nombre from Cliente;
+delete from cliente where codCliente between 1 and 50;
+delete from Pedido where idPedido = 2;
 
 CREATE TABLE Articulo(
 	codArticulo char(3) not null,
@@ -67,9 +73,15 @@ CREATE TABLE Articulo(
     PRIMARY KEY(codArticulo),
     FOREIGN KEY(codProveedor) REFERENCES Proveedor(codProveedor) ON DELETE CASCADE ON UPDATE CASCADE
 );
+DELETE FROM Articulo WHERE codArticulo = ?;
 
 call sp_NuevoArticulo('RF','Refresco', 15.99, 2, 'CC');
-select * from Articulo;
+call sp_NuevoArticulo('PL','Paleta', 2.99, 0, 'CC');
+call sp_NuevoArticulo('PN','Pan', 3.15, 1, 'CC');
+call sp_NuevoArticulo('CP','Comida para perro', 10.99, 1, 'CC');
+call sp_NuevoArticulo('CG','Comida para gato', 10.99, 1, 'CC');
+
+select codArticulo, nombre, precio from Articulo;
 
 
 -- tabla relacion
