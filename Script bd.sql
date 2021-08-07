@@ -21,6 +21,9 @@ CALL sp_NuevoCliente('Raul','Gonzalez',100);
 CALL sp_NuevoCliente('Uriel','Ibañez',100);
 
 select codCliente, nombre, apellido, credito from Cliente;
+
+-- calcula el ultimo codigo de cliente
+
 select codCliente, nombre, apellido, credito from Cliente where codCliente = ?;
 
 DELETE FROM Cliente WHERE codCliente = ?;
