@@ -22,8 +22,9 @@ CALL sp_NuevoCliente('Uriel','Ibañez',100);
 
 select codCliente, nombre, apellido, credito from Cliente;
 
--- calcula el ultimo codigo de cliente
-
+-- calcula el ultimo id
+-- MIN(), MAX(), AVG()
+select max(codCliente) AS ultimoCliente from Cliente;
 select codCliente, nombre, apellido, credito from Cliente where codCliente = ?;
 
 DELETE FROM Cliente WHERE codCliente = ?;
@@ -78,13 +79,17 @@ CREATE TABLE Articulo(
 );
 DELETE FROM Articulo WHERE codArticulo = ?;
 
+select * from articulo;
+SELECT codArticulo, nombre, precio FROM Articulo;
+
 call sp_NuevoArticulo('RF','Refresco', 15.99, 2, 'CC');
 call sp_NuevoArticulo('PL','Paleta', 2.99, 0, 'CC');
 call sp_NuevoArticulo('PN','Pan', 3.15, 1, 'CC');
 call sp_NuevoArticulo('CP','Comida para perro', 10.99, 1, 'CC');
 call sp_NuevoArticulo('CG','Comida para gato', 10.99, 1, 'CC');
 
-select codArticulo, nombre, precio from Articulo;
+select codArticulo, nombre, precio from Articulo WHERE nombre = "Refresco";
+select codArticulo, nombre, precio from Articulo WHERE nombre = "Croquetas";
 
 
 -- tabla relacion
