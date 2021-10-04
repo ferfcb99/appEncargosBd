@@ -61,6 +61,7 @@ select curtime();
 call sp_NuevoPedido(CURDATE(), curtime(), 2, 14.99, 5, 0, 15.17, 2);
 select * from Pedido;
 Select max(idPedido) as ultimo from Pedido;
+-- @@IDENTITY
 
 select * from cliente;
 select nombre from Cliente;
@@ -118,6 +119,7 @@ call sp_NuevoUsuario('Paola','54321','Trabajador');
 call sp_NuevoUsuario('Oscar','12345','Trabajador');
 call sp_NuevoUsuario('Alejandro', 'abc', 'Administrador');
 call sp_NuevoUsuario('Alejandra', 'bca', 'Trabajador');
+call sp_NuevoUsuario('Maria', 'LOLRE', 'Trabajador');
 
 delete from Acceso where usuario = 'Alejandro' and clave = 'abc';
 delete from Acceso where usuario = ? and clave = ?;
@@ -125,6 +127,73 @@ delete from Acceso where usuario = ? and clave = ?;
 select * from Acceso;
 select usuario, clave, tipoDeUsuario from Acceso;
 
+select * from pedido;
+select * from PedidoArticulo;
 
+-- MAX()
+-- AVG()
+-- MIN()
+-- Concat()
+-- Length - len
+select * from acceso;
+select concat(usuario, ' ', tipoDeUsuario) 
+	from Acceso;
 
+select substring(usuario, 1, 1) from Acceso;
+select length(tipoDeUsuario) from Acceso;
+select substring(tipoDeUsuario, length(tipoDeUsuario), length(tipoDeUsuario)) 
+	from acceso;
+select substring(clave, 2, length(clave) - 2) from acceso;
+-- Contraseña: el primer caracter del usuario, los 3 caracteres centrales de la clave y el ultimo del tipo
+select concat(substring(usuario, 1, 1),  substring(clave, 2, length(clave) - 2), 
+substring(tipoDeUsuario, length(tipoDeUsuario), length(tipoDeUsuario))) AS Contraseña
+	from Acceso;
+    
+select * from PedidoArticulo;
+-- BETWEEN 
+select * 
+	from PedidoArticulo 
+		where idPedido BETWEEN 2 AND 7;
 
+-- GROUP BY 
+ -- ORDER BY 
+ 
+ select * 
+	from PedidoArticulo 
+		where idPedido BETWEEN 2 AND 7
+			order by codArticulo ASC;
+ 
+ select * 
+	from PedidoArticulo 
+		where idPedido BETWEEN 2 AND 7
+			order by codArticulo DESC;
+            
+            
+-- Group by
+ -- HAVING  es sustituto de WHERE
+select * from pedido;
+select fecha, sum(cantidadArticulos)
+	from Pedido
+		group by fecha
+			having sum(cantidadArticulos) > 6;
+            
+-- Upper
+-- Lower 
+select upper(usuario) from acceso;
+select lower(usuario) from acceso;
+
+select ucase(usuario) from acceso;
+select lcase(usuario) from acceso;
+
+-- Consultas mutitabla
+-- JOINS
+select * from pedido;
+/*
+select distinct p.idPedido, p.fecha, p.cantidadArticulos, p.costoTotal, c.nombre, c.credito
+	from Pedido p inner join Cliente c 
+    on p.codCliente = c.codCliente inner join PedidoArticulo pa
+    on p.idPedido = pa.idPedido;
+*/  
+select distinct p.idPedido, p.fecha, p.cantidadArticulos, p.costoTotal, c.nombre, c.credito
+	from Pedido p inner join Cliente c 
+    on p.codCliente = c.codCliente;
